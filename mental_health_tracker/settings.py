@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-be*hct)+edbfo!lvjtgd+239d$1_8s6k2z4qnv9xz&k5&kcovu
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "http://raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "https://raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "http://raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "https://raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "http://10.0.2.2"]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://localhost:\d+$",       # Allows any port on localhost
+    r"^http://10\.0\.2\.2:\d+$",     # Allows any port on Android emulator
+]
 
 
 
@@ -39,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'authentication',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,9 +58,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'mental_health_tracker.urls'
+
 
 TEMPLATES = [
     {
@@ -131,3 +140,10 @@ else:
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1", "http://raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "https://raisa-sakila-raisamentalhealthtracker.pbp.cs.ui.ac.id", "http://10.0.2.2"]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
